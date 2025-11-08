@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bawana Portal | UGM</title>
+  <link rel="stylesheet" href="Webdev2.css" />
+</head>
+<body>
+  <div class="overlay"></div> <!-- efek blur awal -->
+
+  <div class="card">
+    <div class="left-side">
+      <div class="logo-area" id="focusTrigger">
+        <div class="logo">🌍</div>
+        <h2>Universitas Gadjah Mada</h2>
+        <p>Mengelola sampah, menjaga bumi, dan membangun kesadaran.</p>
+      </div>
+    </div>
+
+    <div class="right-side">
+      <h1>Welcome Back 👋</h1>
+      <p class="subtitle">Login untuk melanjutkan perjalananmu bersama Bawana.</p>
+
+      <form class="login-form" id="loginForm">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+      <div class="footer-links">
+        <a href="#" class="faculty-link">Forgot Password?</a> |
+        <a href="#" class="faculty-link">Register</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==== Efek klik logo untuk fokus ====
+    const overlay = document.querySelector('.overlay');
+    const body = document.body;
+    const focusTrigger = document.getElementById('focusTrigger');
+
+    focusTrigger.addEventListener('click', () => {
+      body.classList.add('focused');
+      overlay.classList.add('hide');
+    });
+
+    // ==== Login functionality ====
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      // LOGIN SIMPLE - TANPA BACKEND
+      if(username && password) {
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('userName', username);
+          
+          alert('Login berhasil! Selamat datang, ' + username);
+          
+          // Ganti dengan halaman tujuan yang sesuai
+          window.location.href = 'Index.html';
+      } else {
+          alert('Silakan isi username dan password!');
+      }
+    });
+
+    // Cek jika user sudah login
+    window.addEventListener('load', function() {
+      if(localStorage.getItem('isLoggedIn') === 'true') {
+        console.log('User sudah login');
+      }
+    });
+  </script>
+</body>
+</html>
