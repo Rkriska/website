@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGM Campus Hub - Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- ===== SIDEBAR NAVIGATION ===== -->
+        <nav class="sidebar">
+            <!-- Logo Section -->
+            <div class="logo-section">
+                <div class="logo">
+                    <div class="logo-icon">🎓</div>
+                    <h2>UGM Campus Hub</h2>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="nav-section">
+                <div class="nav-group">
+                    <h3 class="nav-group-title">MAIN MENU</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item active" data-page="dashboard">
+                            <span class="nav-icon">📊</span>
+                            <span class="nav-text">Dashboard</span>
+                            <div class="active-indicator"></div>
+                        </li>
+                        <li class="nav-item" data-page="peminjaman">
+                            <span class="nav-icon">🏢</span>
+                            <span class="nav-text">Peminjaman</span>
+                        </li>
+                        <li class="nav-item" data-page="library">
+                            <span class="nav-icon">📖</span>
+                            <span class="nav-text">Perpustakaan</span>
+                        </li>
+                        <li class="nav-item" data-page="jadwal">
+                            <span class="nav-icon">📅</span>
+                            <span class="nav-text">Jadwal Kuliah</span>
+                        </li>
+                        <li class="nav-item" data-page="nilai">
+                            <span class="nav-icon">📝</span>
+                            <span class="nav-text">Nilai</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="nav-group">
+                    <h3 class="nav-group-title">QUICK ACTIONS</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item" data-page="notifikasi">
+                            <span class="nav-icon">🔔</span>
+                            <span class="nav-text">Notifikasi</span>
+                            <span class="badge">3</span>
+                        </li>
+                        <li class="nav-item" data-page="pengumuman">
+                            <span class="nav-icon">📢</span>
+                            <span class="nav-text">Pengumuman</span>
+                        </li>
+                        <li class="nav-item" data-page="fasilitas">
+                            <span class="nav-icon">🏢</span>
+                            <span class="nav-text">Fasilitas</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- User Profile Section -->
+            <div class="user-section">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <div class="avatar-fallback">RK</div>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name">Radistha Kriska</div>
+                        <div class="user-nim">T14216</div>
+                    </div>
+                    <button class="logout-btn" title="Logout">
+                        <span>🚪</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ===== MAIN CONTENT AREA ===== -->
+        <main class="main-content">
+            
+            <!-- Top Header Bar -->
+            <header class="top-bar">
+                <div class="breadcrumb" id="breadcrumb">
+                    <span class="breadcrumb-item active">Dashboard</span>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Cari..." id="globalSearch">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <div class="notification-bell">
+                        <span>🔔</span>
+                        <div class="notification-dot"></div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ===== DASHBOARD PAGE ===== -->
+            <section class="page-content active" id="dashboardPage">
+                <!-- Welcome Section -->
+                <section class="welcome-section">
+                    <div class="welcome-card">
+                        <div class="welcome-content">
+                            <h1>Selamat Datang, <span class="highlight" id="welcomeName">Radistha!</span> 👋</h1>
+                            <p>Kamu memiliki <strong>2 jadwal hari ini</strong>. Jangan lupa persiapan untuk kelas Pemrograman!</p>
+                        </div>
+                        <div class="welcome-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">3</div>
+                                <div class="stat-label">Task Hari Ini</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">1</div>
+                                <div class="stat-label">Ruangan Dipinjam</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main Content Grid -->
+                <div class="content-grid">
+                    
+                    <!-- Left Column -->
+                    <div class="content-column">
+                        <!-- Jadwal Kelas Section -->
+                        <section class="content-card">
+                            <div class="card-header">
+                                <h2>📅 Jadwal Kelas Hari Ini</h2>
+                                <button class="btn-secondary" data-page="jadwal">Lihat Semua</button>
+                            </div>
+                            <div class="today-schedule">
+                                <div class="schedule-item">
+                                    <div class="schedule-time">
+                                        <span>08:00 - 10:00</span>
+                                    </div>
+                                    <div class="schedule-details">
+                                        <h4>Pemrograman Web</h4>
+                                        <p>Lab. Komputer A • Dr. Ahmad Sopian</p>
+                                    </div>
+                                    <div class="schedule-status available">
+                                        Berlangsung
+                                    </div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-time">
+                                        <span>10:00 - 12:00</span>
+                                    </div>
+                                    <div class="schedule-details">
+                                        <h4>Sistem Operasi</h4>
+                                        <p>R. 205 • Prof. Budi Santoso</p>
+                                    </div>
+                                    <div class="schedule-status upcoming">
+                                        Akan Datang
+                                    </div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-time">
+                                        <span>13:00 - 15:00</span>
+                                    </div>
+                                    <div class="schedule-details">
+                                        <h4>Jaringan Komputer</h4>
+                                        <p>Lab. Jaringan • Dr. Sarah Miller</p>
+                                    </div>
+                                    <div class="schedule-status upcoming">
+                                        Akan Datang
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Pengumuman Section -->
+                        <section class="content-card">
+                            <div class="card-header">
+                                <h2>📢 Pengumuman Terkini</h2>
+                                <button class="btn-text" data-page="pengumuman">Lihat Semua</button>
+                            </div>
+                            <div class="announcement-list">
+                                <div class="announcement-item urgent">
+                                    <div class="announcement-icon">🚨</div>
+                                    <div class="announcement-content">
+                                        <h4>Seminar AI dalam Pendidikan</h4>
+                                        <p>Tanggal: 15 Des 2024 • 13:00 WIB • Auditorium FT</p>
+                                        <span class="announcement-tag">Penting</span>
+                                    </div>
+                                </div>
+                                <div class="announcement-item">
+                                    <div class="announcement-icon">📝</div>
+                                    <div class="announcement-content">
+                                        <h4>Lomba Karya Tulis Ilmiah 2024</h4>
+                                        <p>Deadline pendaftaran: 30 Nov 2024</p>
+                                        <span class="announcement-tag">Kompetisi</span>
+                                    </div>
+                                </div>
+                                <div class="announcement-item">
+                                    <div class="announcement-icon">🎓</div>
+                                    <div class="announcement-content">
+                                        <h4>Beasiswa Prestasi 2024</h4>
+                                        <p>Daftar sekarang melalui portal student</p>
+                                        <span class="announcement-tag">Beasiswa</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="content-column">
+                        <!-- Fasilitas Section -->
+                        <section class="content-card">
+                            <div class="card-header">
+                                <h2>🏢 Status Fasilitas</h2>
+                                <button class="btn-primary" data-page="peminjaman">Pinjam Ruangan</button>
+                            </div>
+                            <div class="facility-list">
+                                <div class="facility-item">
+                                    <div class="facility-icon">🎤</div>
+                                    <div class="facility-info">
+                                        <h4>Ruang Seminar A</h4>
+                                        <p>Kapasitas: 100 orang</p>
+                                    </div>
+                                    <div class="facility-status available">
+                                        <span class="status-dot"></span>
+                                        Tersedia
+                                    </div>
+                                </div>
+                                <div class="facility-item">
+                                    <div class="facility-icon">💻</div>
+                                    <div class="facility-info">
+                                        <h4>Lab. Komputer 1</h4>
+                                        <p>40 komputer • Projector</p>
+                                    </div>
+                                    <div class="facility-status occupied">
+                                        <span class="status-dot"></span>
+                                        Dipinjam
+                                    </div>
+                                </div>
+                                <div class="facility-item">
+                                    <div class="facility-icon">👥</div>
+                                    <div class="facility-info">
+                                        <h4>Ruang Diskusi 301</h4>
+                                        <p>Kapasitas: 8 orang</p>
+                                    </div>
+                                    <div class="facility-status available">
+                                        <span class="status-dot"></span>
+                                        Tersedia
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Quick Actions -->
+                        <section class="content-card">
+                            <div class="card-header">
+                                <h2>⚡ Quick Actions</h2>
+                            </div>
+                            <div class="quick-actions-grid">
+                                <button class="quick-action-btn" data-page="peminjaman">
+                                    <span class="action-icon">🏢</span>
+                                    <span>Pinjam Ruangan</span>
+                                </button>
+                                <button class="quick-action-btn" data-page="library">
+                                    <span class="action-icon">📖</span>
+                                    <span>Perpustakaan</span>
+                                </button>
+                                <button class="quick-action-btn" data-page="jadwal">
+                                    <span class="action-icon">📅</span>
+                                    <span>Jadwal Saya</span>
+                                </button>
+                                <button class="quick-action-btn" data-page="nilai">
+                                    <span class="action-icon">📊</span>
+                                    <span>Lihat Nilai</span>
+                                </button>
+                                <button class="quick-action-btn" data-page="pengumuman">
+                                    <span class="action-icon">📢</span>
+                                    <span>Pengumuman</span>
+                                </button>
+                                <button class="quick-action-btn" data-page="notifikasi">
+                                    <span class="action-icon">🔔</span>
+                                    <span>Notifikasi</span>
+                                </button>
+                            </div>
+                        </section>
+
+                        <!-- Stats Section -->
+                        <section class="content-card">
+                            <div class="card-header">
+                                <h2>📈 Statistik Akademik</h2>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-card small">
+                                    <div class="stat-icon">📚</div>
+                                    <div class="stat-info">
+                                        <div class="stat-number">6</div>
+                                        <div class="stat-label">Mata Kuliah</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card small">
+                                    <div class="stat-icon">⭐</div>
+                                    <div class="stat-info">
+                                        <div class="stat-number">3.75</div>
+                                        <div class="stat-label">IPK</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card small">
+                                    <div class="stat-icon">📖</div>
+                                    <div class="stat-info">
+                                        <div class="stat-number">12</div>
+                                        <div class="stat-label">Buku Dipinjam</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card small">
+                                    <div class="stat-icon">🏢</div>
+                                    <div class="stat-info">
+                                        <div class="stat-number">5</div>
+                                        <div class="stat-label">Ruangan</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== PEMINJAMAN PAGE ===== -->
+            <section class="page-content" id="peminjamanPage">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>🏢 Peminjaman Ruangan</h2>
+                        <div class="header-actions">
+                            <div class="search-bar">
+                                <input type="text" placeholder="Cari ruangan..." id="roomSearch">
+                                <span class="search-icon">🔍</span>
+                            </div>
+                            <button class="btn-primary" id="filterBtn">
+                                <span>🔧</span> Filter
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Room Statistics -->
+                    <div class="room-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">🏢</div>
+                            <div class="stat-info">
+                                <div class="stat-number">12</div>
+                                <div class="stat-label">Total Ruangan</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-info">
+                                <div class="stat-number">8</div>
+                                <div class="stat-label">Tersedia</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⏳</div>
+                            <div class="stat-info">
+                                <div class="stat-number">3</div>
+                                <div class="stat-label">Dipinjam</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔒</div>
+                            <div class="stat-info">
+                                <div class="stat-number">1</div>
+                                <div class="stat-label">Maintenance</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room List -->
+                    <div class="rooms-section">
+                        <h3>Daftar Ruangan</h3>
+                        <div class="rooms-grid" id="roomsGrid">
+                            <!-- Room cards akan di-generate oleh JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== PERPUSTAKAAN PAGE ===== -->
+            <section class="page-content" id="libraryPage">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>📚 Perpustakaan Digital UGM</h2>
+                        <div class="search-bar">
+                            <input type="text" placeholder="Cari buku, jurnal, atau artikel..." id="librarySearch">
+                            <span class="search-icon">🔍</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Library Stats -->
+                    <div class="library-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">📖</div>
+                            <div class="stat-info">
+                                <div class="stat-number">5,247</div>
+                                <div class="stat-label">E-Books</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📰</div>
+                            <div class="stat-info">
+                                <div class="stat-number">1,892</div>
+                                <div class="stat-label">Jurnal</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⏳</div>
+                            <div class="stat-info">
+                                <div class="stat-number">3</div>
+                                <div class="stat-label">Dipinjam</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Book Categories -->
+                    <div class="categories-section">
+                        <h3>Kategori Buku</h3>
+                        <div class="categories-grid">
+                            <div class="category-card" data-category="technology">
+                                <span class="category-icon">💻</span>
+                                <span class="category-name">Teknologi</span>
+                            </div>
+                            <div class="category-card" data-category="science">
+                                <span class="category-icon">🔬</span>
+                                <span class="category-name">Sains</span>
+                            </div>
+                            <div class="category-card" data-category="mathematics">
+                                <span class="category-icon">📐</span>
+                                <span class="category-name">Matematika</span>
+                            </div>
+                            <div class="category-card" data-category="fiction">
+                                <span class="category-icon">📖</span>
+                                <span class="category-name">Fiksi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Books -->
+                    <div class="books-section">
+                        <div class="section-header">
+                            <h3>Buku Terbaru</h3>
+                            <button class="btn-text">Lihat Semua</button>
+                        </div>
+                        <div class="books-grid">
+                            <div class="book-card">
+                                <div class="book-cover">
+                                    <div class="cover-placeholder">📘</div>
+                                </div>
+                                <div class="book-info">
+                                    <h4>Pemrograman Web Modern</h4>
+                                    <p class="book-author">Dr. Ahmad Sopian</p>
+                                    <div class="book-meta">
+                                        <span class="book-year">2024</span>
+                                        <span class="book-category">Teknologi</span>
+                                    </div>
+                                    <button class="btn-primary btn-sm">Pinjam Buku</button>
+                                </div>
+                            </div>
+                            
+                            <div class="book-card">
+                                <div class="book-cover">
+                                    <div class="cover-placeholder">🔬</div>
+                                </div>
+                                <div class="book-info">
+                                    <h4>Data Science Fundamentals</h4>
+                                    <p class="book-author">Prof. Sarah Miller</p>
+                                    <div class="book-meta">
+                                        <span class="book-year">2023</span>
+                                        <span class="book-category">Sains</span>
+                                    </div>
+                                    <button class="btn-primary btn-sm">Pinjam Buku</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== JADWAL KULIAH PAGE ===== -->
+            <section class="page-content" id="jadwalPage">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>📅 Jadwal Kuliah</h2>
+                        <div class="header-actions">
+                            <select class="filter-select" id="weekFilter">
+                                <option value="current">Minggu Ini</option>
+                                <option value="next">Minggu Depan</option>
+                                <option value="all">Semua</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="schedule-container">
+                        <div class="schedule-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="time-header">WAKTU</th>
+                                        <th>Senin</th>
+                                        <th>Selasa</th>
+                                        <th>Rabu</th>
+                                        <th>Kamis</th>
+                                        <th>Jumat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="time-slot">
+                                            <div>08:00</div>
+                                            <div>10:00</div>
+                                        </td>
+                                        <td>
+                                            <div class="class-card primary">
+                                                <div class="class-title">Pemrograman Web</div>
+                                                <div class="class-info">Lab. Komputer A</div>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="class-card primary">
+                                                <div class="class-title">Pemrograman Web</div>
+                                                <div class="class-info">Lab. Komputer B</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="class-card primary">
+                                                <div class="class-title">Pemrograman Web</div>
+                                                <div class="class-info">R. 301</div>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="time-slot">
+                                            <div>10:00</div>
+                                            <div>12:00</div>
+                                        </td>
+                                        <td>
+                                            <div class="class-card secondary">
+                                                <div class="class-title">Sistem Operasi</div>
+                                                <div class="class-info">R. 205</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="class-card secondary">
+                                                <div class="class-title">Sistem Operasi</div>
+                                                <div class="class-info">Lab. OS</div>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="class-card secondary">
+                                                <div class="class-title">Sistem Operasi</div>
+                                                <div class="class-info">R. 205</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="class-card accent">
+                                                <div class="class-title">Jaringan Komputer</div>
+                                                <div class="class-info">Lab. Jaringan</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== NILAI PAGE ===== -->
+            <section class="page-content" id="nilaiPage">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>📝 Nilai Akademik</h2>
+                        <div class="header-actions">
+                            <select class="filter-select" id="semesterFilter">
+                                <option value="all">Semua Semester</option>
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- IPK Summary -->
+                    <div class="gpa-summary">
+                        <div class="gpa-card">
+                            <div class="gpa-score">3.75</div>
+                            <div class="gpa-label">IPK Semester Ini</div>
+                            <div class="gpa-trend up">+0.15 dari semester lalu</div>
+                        </div>
+                    </div>
+
+                    <!-- Grades Table -->
+                    <div class="grades-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mata Kuliah</th>
+                                    <th>Kode</th>
+                                    <th>SKS</th>
+                                    <th>Nilai</th>
+                                    <th>Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Pemrograman Web</td>
+                                    <td>PW001</td>
+                                    <td>3</td>
+                                    <td>85</td>
+                                    <td><span class="grade-badge A">A</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Sistem Operasi</td>
+                                    <td>SO002</td>
+                                    <td>3</td>
+                                    <td>78</td>
+                                    <td><span class="grade-badge B">B+</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Jaringan Komputer</td>
+                                    <td>JK003</td>
+                                    <td>3</td>
+                                    <td>82</td>
+                                    <td><span class="grade-badge A">A-</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== PENGUMUMAN PAGE ===== -->
+            <section class="page-content" id="pengumumanPage">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>📢 Semua Pengumuman</h2>
+                    </div>
+                    <div class="announcement-list full">
+                        <!-- All announcements will be here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== NOTIFIKASI PAGE ===== -->
+            <section class="page-content" id="notifikasiPage">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>🔔 Notifikasi</h2>
+                        <button class="btn-text" id="markAllRead">Tandai Sudah Dibaca</button>
+                    </div>
+                    <div class="notification-list">
+                        <!-- Notifications will be here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== FASILITAS PAGE ===== -->
+            <section class="page-content" id="fasilitasPage">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>🏢 Semua Fasilitas</h2>
+                    </div>
+                    <div class="facility-list full">
+                        <!-- All facilities will be here -->
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Modal untuk Jadwal Ruangan -->
+    <div class="modal" id="scheduleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalRoomTitle">Jadwal Ruangan</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="week-navigation">
+                    <button class="btn-text" id="prevWeek">← Minggu Lalu</button>
+                    <span id="currentWeekRange">Minggu Ini</span>
+                    <button class="btn-text" id="nextWeek">Minggu Depan →</button>
+                </div>
+                
+                <div class="schedule-calendar">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <!-- Hari akan di-generate oleh JavaScript -->
+                            </tr>
+                        </thead>
+                        <tbody id="scheduleBody">
+                            <!-- Schedule akan di-generate oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="booking-actions">
+                    <button class="btn-primary" id="bookRoom">Pinjam Ruangan Ini</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js">
+if(!localStorage.getItem('isLoggedIn')) {
+    window.location.href = 'index.html';
+}   
+    </script>
+</body>
+</html>
