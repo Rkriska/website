@@ -1,5 +1,5 @@
 # website
-# 🎓 UGM Campus Hub
+# 🎓 GAMASI
 
 A comprehensive campus management system for Universitas Gadjah Mada students.
 
