@@ -79,9 +79,21 @@ body {
 }
 
 .logo-icon {
-    font-size: 2rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-gold));
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
+.small-image {
+    width: 50px;        /* Ukuran kecil yang diinginkan */
+    height: 50px;       /* Ukuran kecil yang diinginkan */
+    object-fit: contain; /* Gambar tidak terdistorsi */
+    margin-right: 0px;
+}
 .logo h2 {
     font-size: 1.25rem;
     font-weight: 700;
