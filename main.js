@@ -3,7 +3,69 @@
 let currentSelectedRoom = null;
 let selectedBooking = null;
 let currentPage = 'dashboard';
+function switchPageWithAnimation(pageName) {
+    console.log('🎬 Switching to page with animation:', pageName);
+    
+    // Add fade out effect to current page
+    const currentActivePage = document.querySelector('.page-content.active');
+    if (currentActivePage) {
+        currentActivePage.style.animation = 'fadeOut 0.3s ease-out forwards';
+    }
+    
+    setTimeout(() => {
+        // Hide all pages
+        document.querySelectorAll('.page-content').forEach(page => {
+            page.style.display = 'none';
+            page.classList.remove('active');
+        });
+        
+        // Remove active class from all nav items
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Show target page dengan animation
+        const targetPage = document.getElementById(pageName + 'Page');
+        if (targetPage) {
+            targetPage.style.display = 'block';
+            targetPage.classList.add('active');
+            currentPage = pageName;
+            
+            // Add animation class
+            targetPage.style.animation = 'fadeIn 0.5s ease-out forwards';
+            
+            // Update active navigation
+            const activeNav = document.querySelector(`.nav-item[data-page="${pageName}"]`);
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+            
+            // Update breadcrumb
+            updateBreadcrumb(pageName);
+            
+            // Update page title
+            updatePageTitle(pageName);
+            
+            // Initialize page-specific functionality
+            initializePage(pageName);
+        }
+    }, 300);
+}
 
+// ===== TYPING EFFECT =====
+function typeWriterEffect(element, text, speed = 50) {
+    let i = 0;
+    element.innerHTML = '';
+    
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    type();
+}
 // Initialize application
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🎓 UGM Campus Hub Initialized');
@@ -21,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // ===== AUTHENTICATION SYSTEM =====
 function checkAuthentication() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const userFullName = localStorage.getItem('userFullName') || 'Radistha Kriska';
+    const userFullName = localStorage.getItem('userName');
     
     console.log('🔐 Authentication check:', { isLoggedIn, userFullName });
     
@@ -36,14 +98,20 @@ function checkAuthentication() {
 }
 
 function updateUserInterface() {
-    const userFullName = localStorage.getItem('userFullName') || 'Radistha Kriska';
+    const userFullName = localStorage.getItem('userName') || 'User';
     
     // Update all user name elements
-    document.querySelectorAll('.user-name, .highlight, #welcomeName').forEach(el => {
-        if (el.textContent !== userFullName) {
-            el.textContent = userFullName;
-        }
+    document.querySelectorAll('.user-name, .highlight, #welcomeUserName').forEach(el => {
+        el.textContent = userFullName;
     });
+    
+    // Typing effect untuk welcome message ← INI YANG BARU
+    const welcomeElement = document.getElementById('welcomeUserName');
+    if (welcomeElement) {
+        setTimeout(() => {
+            typeWriterEffect(welcomeElement, userFullName, 80);
+        }, 1000);
+    }
     
     // Update avatar initials
     const avatarFallback = document.querySelector('.avatar-fallback');
@@ -71,29 +139,29 @@ function setupLogout() {
             // Clear all storage
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('currentUser');
-            localStorage.removeItem('userFullName');
+            localStorage.removeItem('userName');
             
             // Redirect to login page
-            window.location.href = 'Webdev2.html';
+            window.location.href = 'index.html';
         }
     });
 }
 
 // ===== PAGE NAVIGATION SYSTEM =====
+// GANTI function setupPageNavigation yang lama dengan ini:
 function setupPageNavigation() {
     console.log('🌐 Setting up page navigation...');
     
-    // Navigation items
     const navItems = document.querySelectorAll('.nav-item[data-page]');
     const quickActionBtns = document.querySelectorAll('.quick-action-btn[data-page]');
     const otherButtons = document.querySelectorAll('button[data-page]');
     
-    // Setup navigation items
+    // Setup navigation items dengan animation
     navItems.forEach(item => {
         item.addEventListener('click', function() {
             const targetPage = this.getAttribute('data-page');
             console.log('📍 Navigation clicked:', targetPage);
-            switchPage(targetPage);
+            switchPageWithAnimation(targetPage); // ← GUNAKAN YANG BARU
         });
     });
     
@@ -102,17 +170,17 @@ function setupPageNavigation() {
         btn.addEventListener('click', function() {
             const targetPage = this.getAttribute('data-page');
             console.log('⚡ Quick action:', targetPage);
-            switchPage(targetPage);
+            switchPageWithAnimation(targetPage); // ← GUNAKAN YANG BARU
         });
     });
     
-    // Setup other buttons with page navigation
+    // Setup other buttons
     otherButtons.forEach(btn => {
         if (btn.getAttribute('data-page')) {
             btn.addEventListener('click', function() {
                 const targetPage = this.getAttribute('data-page');
                 console.log('🔘 Button navigation:', targetPage);
-                switchPage(targetPage);
+                switchPageWithAnimation(targetPage); // ← GUNAKAN YANG BARU
             });
         }
     });
@@ -270,89 +338,6 @@ function initializePeminjamanPage() {
     setupScheduleModal();
 }
 
-// Data ruangan
-const roomsData = [
-    {
-        id: 1,
-        name: "Ruang Seminar A",
-        type: "seminar",
-        capacity: 100,
-        facilities: ["Projector", "AC", "Sound System", "Whiteboard"],
-        status: "available",
-        schedule: generateSampleSchedule()
-    },
-    {
-        id: 2,
-        name: "Lab. Komputer 1",
-        type: "lab",
-        capacity: 40,
-        facilities: ["40 PC", "Projector", "AC", "Internet"],
-        status: "available",
-        schedule: generateSampleSchedule()
-    },
-    {
-        id: 3,
-        name: "Ruang Diskusi 301",
-        type: "discussion",
-        capacity: 8,
-        facilities: ["AC", "Whiteboard", "TV"],
-        status: "occupied",
-        schedule: generateSampleSchedule()
-    },
-    {
-        id: 4,
-        name: "Auditorium FT",
-        type: "auditorium",
-        capacity: 200,
-        facilities: ["Projector", "AC", "Sound System", "Stage"],
-        status: "available",
-        schedule: generateSampleSchedule()
-    },
-    {
-        id: 5,
-        name: "Lab. Jaringan",
-        type: "lab",
-        capacity: 25,
-        facilities: ["25 PC", "Switch", "Router", "AC"],
-        status: "maintenance",
-        schedule: generateSampleSchedule()
-    },
-    {
-         id: 6,
-        name: "a",
-        type: "lab",
-        capacity: 25,
-        facilities: ["25 PC", "Switch", "Router", "AC"],
-        status: "maintenance",
-        schedule: generateSampleSchedule()
-    },
-    {
-         id: 7,
-        name: "ab",
-        type: "lab",
-        capacity: 25,
-        facilities: ["25 PC", "Switch", "Router", "AC"],
-        status: "maintenance",
-        schedule: generateSampleSchedule()
-    }
-];
-
-function generateSampleSchedule() {
-    const schedule = {};
-    const timeSlots = ["08:00-10:00", "10:00-12:00", "13:00-15:00", "15:00-17:00"];
-    const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat'];
-    
-    days.forEach(day => {
-        schedule[day] = {};
-        timeSlots.forEach(slot => {
-            // Random availability (70% available)
-            schedule[day][slot] = Math.random() > 0.3 ? 'available' : 'occupied';
-        });
-    });
-    
-    return schedule;
-}
-
 function loadRooms() {
     const roomsGrid = document.getElementById('roomsGrid');
     if (!roomsGrid) return;
@@ -456,7 +441,7 @@ function generateScheduleTable(room) {
     
     // Generate table header
     const thead = document.querySelector('.schedule-table thead tr');
-    thead.innerHTML = '<th>Waktu</th>';
+    thead.innerHTML = '<th class="time-header">WAKTU</th>';
     days.forEach(day => {
         thead.innerHTML += `<th>${day.name}</th>`;
     });
@@ -475,17 +460,33 @@ function generateScheduleTable(room) {
             cell.className = `schedule-cell ${status}`;
             cell.setAttribute('data-day', day.id);
             cell.setAttribute('data-time', timeSlot);
+            
+            let statusText = '';
+            let statusIcon = '';
+            
+            if (status === 'available') {
+                statusText = 'Tersedia';
+                statusIcon = '✅';
+            } else {
+                statusText = 'Dipinjam';
+                statusIcon = '❌';
+            }
+            
             cell.innerHTML = `
                 <div class="slot-content">
                     <span class="status-indicator"></span>
-                    <span class="status-text">${getStatusText(status)}</span>
+                    <span class="status-text">${statusText}</span>
+                    <span class="status-icon">${statusIcon}</span>
                 </div>
             `;
             
-            // Add click event for available slots
+            // Add click event hanya untuk yang available
             if (status === 'available') {
                 cell.classList.add('clickable');
                 cell.addEventListener('click', () => selectTimeSlot(room, day.id, timeSlot, cell));
+            } else {
+                cell.style.cursor = 'not-allowed';
+                cell.title = 'Ruangan sudah dipinjam';
             }
             
             row.appendChild(cell);
@@ -493,31 +494,72 @@ function generateScheduleTable(room) {
         
         tbody.appendChild(row);
     });
+    
+    // Tambahkan legend
+    addScheduleLegend();
 }
 
+// ✅ FUNCTION BARU: Tambah legend
+function addScheduleLegend() {
+    const modalBody = document.querySelector('.modal-body');
+    const existingLegend = document.querySelector('.schedule-legend');
+    
+    // Hapus legend lama jika ada
+    if (existingLegend) {
+        existingLegend.remove();
+    }
+    
+    const legend = document.createElement('div');
+    legend.className = 'schedule-legend';
+    legend.innerHTML = `
+        <div class="legend-item">
+            <div class="legend-color legend-available"></div>
+            <span>Tersedia</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color legend-occupied"></div>
+            <span>Sudah Dipinjam</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color legend-selected"></div>
+            <span>Dipilih</span>
+        </div>
+    `;
+    
+    // Sisipkan legend sebelum calendar
+    const calendar = document.querySelector('.schedule-calendar');
+    modalBody.insertBefore(legend, calendar);
+}
+
+// ✅ GANTI DENGAN YANG BARU:
 function selectTimeSlot(room, day, timeSlot, cell) {
     console.log('⏰ Selected:', room.name, day, timeSlot);
     
-    // Remove previous selection
-    document.querySelectorAll('.schedule-cell.selected').forEach(cell => {
-        cell.classList.remove('selected');
+    // Hapus selection sebelumnya
+    document.querySelectorAll('.schedule-cell.selected').forEach(selectedCell => {
+        selectedCell.classList.remove('selected');
     });
     
-    // Add selection to clicked cell
+    // Tambah selection ke cell yang diklik
     cell.classList.add('selected');
     
     // Store selected booking details
     selectedBooking = {
         room: room,
         day: day,
-        timeSlot: timeSlot
+        timeSlot: timeSlot,
+        cell: cell,
+        date: getNextDateForDay(day)  // ✅ BARU DITAMBAH
     };
     
-    // Enable book button
-    document.getElementById('bookRoom').disabled = false;
+    // Enable book button dan update text
+    const bookBtn = document.getElementById('bookRoom');
+    bookBtn.disabled = false;
+    bookBtn.textContent = `Pinjam ${room.name} - ${getDayName(day)} ${timeSlot}`;
+    bookBtn.style.background = 'var(--success)';
     
     // Show confirmation message
-    showNotification(`Dipilih: ${room.name} - ${getDayName(day)} ${timeSlot}`, 'success');
+    showNotification(`✅ Dipilih: ${room.name} - ${getDayName(day)} ${timeSlot}`, 'success');
 }
 
 function setupScheduleModal() {
@@ -554,28 +596,55 @@ function setupScheduleModal() {
 }
 
 function bookSelectedRoom() {
-    if (!selectedBooking) return;
+    if (!selectedBooking) {
+        showNotification('❌ Pilih jadwal terlebih dahulu!', 'error');
+        return;
+    }
     
-    const { room, day, timeSlot } = selectedBooking;
+    const { room, day, timeSlot, cell } = selectedBooking;
     
     if (confirm(`Pinjam ${room.name} pada ${getDayName(day)} ${timeSlot}?`)) {
         // Simulate booking process
-        showNotification(`✅ Berhasil meminjam ${room.name}!\nHari: ${getDayName(day)}\nWaktu: ${timeSlot}`, 'success');
+        showNotification(`✅ Berhasil meminjam ${room.name}!\n📅 ${getDayName(day)} ${timeSlot}`, 'success');
         
-        // Close modal
-        document.getElementById('scheduleModal').style.display = 'none';
+        // Update UI - ubah status cell menjadi occupied
+        cell.classList.remove('selected', 'available');
+        cell.classList.add('occupied');
+        cell.innerHTML = `
+            <div class="slot-content">
+                <span class="status-indicator"></span>
+                <span class="status-text">Dipinjam</span>
+                <span class="status-icon">❌</span>
+            </div>
+        `;
+        cell.style.cursor = 'not-allowed';
+        cell.title = 'Ruangan sudah dipinjam';
+        
+        // Remove click event
+        cell.replaceWith(cell.cloneNode(true));
+        
+        // Close modal setelah delay
+        setTimeout(() => {
+            document.getElementById('scheduleModal').style.display = 'none';
+        }, 2000);
         
         // Update room status in UI
         updateRoomStatus(room.id, 'occupied');
         
         // Reset selection
         selectedBooking = null;
+        
+        // Reset book button
+        const bookBtn = document.getElementById('bookRoom');
+        bookBtn.disabled = true;
+        bookBtn.textContent = 'Pinjam Ruangan Ini';
+        bookBtn.style.background = '';
     }
 }
 
 function quickBookRoom(room) {
     if (confirm(`Pinjam ${room.name} untuk sekarang?`)) {
-        showNotification(`✅ ${room.name} berhasil dipinjam!`, 'success');
+        showNotification(` ${room.name} berhasil dipinjam!`, 'success');
         updateRoomStatus(room.id, 'occupied');
     }
 }
@@ -613,49 +682,105 @@ function showRoomFilters() {
 function initializeLibraryPage() {
     console.log('📚 Initializing library page...');
     
-    // Setup search functionality
+    // ✅ FIX: Setup search dengan removeEventListener dulu
     const searchInput = document.getElementById('librarySearch');
     if (searchInput) {
-        searchInput.addEventListener('input', function(e) {
-            searchBooks(e.target.value);
-        });
+        searchInput.removeEventListener('input', handleSearch);
+        searchInput.addEventListener('input', handleSearch);
     }
     
-    // Setup category filters
+    // ✅ FIX: Category filters dengan remove dulu
     document.querySelectorAll('.category-card').forEach(card => {
-        card.addEventListener('click', function() {
-            const category = this.getAttribute('data-category');
-            filterBooksByCategory(category);
-        });
+        card.removeEventListener('click', handleCategoryClick);
+        card.addEventListener('click', handleCategoryClick);
     });
     
-    // Setup book borrowing
-    document.querySelectorAll('.btn-primary.btn-sm').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const bookTitle = this.closest('.book-card').querySelector('h4').textContent;
-            borrowBook(bookTitle);
-        });
-    });
+    // ✅ FIX: Pakai event delegation (hanya 1 event listener)
+    setupBookBorrowing();
 }
-
+// ✅ TAMBAHKAN FUNCTION INI
+function handleSearch(e) {
+    const query = e.target.value;
+    if (query.length > 2) {
+        console.log('🔍 Searching books for:', query);
+        showNotification(`Menampilkan hasil untuk: ${query}`, 'info');
+    }
+}
+// ✅ TAMBAHKAN FUNCTION INI  
+function handleCategoryClick() {
+    const category = this.getAttribute('data-category');
+    console.log('📂 Filtering books by category:', category);
+    showNotification(`Menampilkan buku kategori: ${getCategoryName(category)}`, 'info');
+}
 function searchBooks(query) {
     if (query.length > 2) {
         console.log('🔍 Searching books for:', query);
         showNotification(`Menampilkan hasil untuk: ${query}`, 'info');
     }
 }
-
+function setupBookBorrowing() {
+    const booksSection = document.querySelector('.books-section');
+    if (booksSection) {
+        // Hapus event listener lama
+        booksSection.removeEventListener('click', handleBookBorrow);
+        // Pasang event listener baru (hanya satu)
+        booksSection.addEventListener('click', handleBookBorrow);
+    }
+}
+// ✅ TAMBAHKAN FUNCTION INI
+function handleBookBorrow(e) {
+    // Cek jika yang diklik adalah tombol "Pinjam Buku"
+    if (e.target.classList.contains('btn-primary') && e.target.classList.contains('btn-sm')) {
+        e.preventDefault();
+        e.stopPropagation(); // Penting: stop event bubbling
+        
+        const bookCard = e.target.closest('.book-card');
+        if (bookCard) {
+            const bookTitle = bookCard.querySelector('h4').textContent;
+            const bookAuthor = bookCard.querySelector('.book-author').textContent;
+            
+            console.log('📖 Borrowing book:', bookTitle);
+            borrowBook(bookTitle, bookAuthor);
+        }
+    }
+}
 function filterBooksByCategory(category) {
     console.log('📂 Filtering books by category:', category);
     showNotification(`Menampilkan buku kategori: ${getCategoryName(category)}`, 'info');
 }
 
-function borrowBook(bookTitle) {
-    if (confirm(`Pinjam buku "${bookTitle}"?`)) {
-        showNotification(`✅ Buku "${bookTitle}" berhasil dipinjam!`, 'success');
+// ✅ GANTI function borrowBook yang lama dengan ini:
+function borrowBook(bookTitle, bookAuthor = '') {
+    // Cek jika sudah ada notifikasi aktif
+    if (window.currentBorrowNotification) {
+        return; // Jangan izinkan multiple clicks
+    }
+    
+    if (confirm(`Pinjam buku "${bookTitle}"${bookAuthor ? ` oleh ${bookAuthor}` : ''}?`)) {
+        // Set flag untuk prevent multiple clicks
+        window.currentBorrowNotification = true;
+        
+        // Disable tombol sementara
+        const buttons = document.querySelectorAll('.btn-primary.btn-sm');
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+        });
+        
+        showNotification(` Buku "${bookTitle}" berhasil dipinjam!`, 'success');
+        
+        // Reset setelah 2 detik
+        setTimeout(() => {
+            window.currentBorrowNotification = false;
+            buttons.forEach(btn => {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            });
+        }, 2000);
     }
 }
 
+// ✅ TAMBAHKAN FUNCTION INI (jika belum ada)
 function getCategoryName(category) {
     const categories = {
         'technology': 'Teknologi',
@@ -717,11 +842,282 @@ function getDayName(dayId) {
         'selasa': 'Selasa', 
         'rabu': 'Rabu',
         'kamis': 'Kamis',
-        'jumat': 'Jumat'
+        'jumat': 'Jumat',
+        'sabtu': 'Sabtu',    // ✅ BARU DITAMBAH
+        'minggu': 'Minggu'   // ✅ BARU DITAMBAH
     };
     return days[dayId] || dayId;
 }
+// ✅ TAMBAHKAN FUNCTION BARU INI:
+function getNextDateForDay(dayName) {
+    const days = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+    const dayIndex = days.indexOf(dayName.toLowerCase());
+    const today = new Date();
+    const todayIndex = today.getDay();
+    
+    let daysToAdd = dayIndex - todayIndex;
+    if (daysToAdd <= 0) {
+        daysToAdd += 7; // Next week
+    }
+    
+    const nextDate = new Date(today);
+    nextDate.setDate(today.getDate() + daysToAdd);
+    return nextDate;
+}
 
+function getCellTooltip(status) {
+    const tooltips = {
+        'available': 'Klik untuk meminjam ruangan',
+        'occupied': 'Ruangan sudah dipinjam',
+        'maintenance': 'Ruangan dalam perbaikan',
+        'class': 'Sedang digunakan untuk kelas'
+    };
+    return tooltips[status] || 'Tidak tersedia';
+}
+// ✅ TAMBAHKAN FUNCTION BARU INI:
+function generateDetailedSchedule() {
+    const schedule = {};
+    const timeSlots = [
+        "07:00-09:00",
+        "09:00-11:00", 
+        "11:00-13:00",
+        "13:00-15:00",
+        "15:00-17:00",
+        "17:00-19:00",
+        "19:00-21:00"
+    ];
+    const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+    
+    // Class schedules untuk realism
+    const classSchedules = {
+        'senin': ['09:00-11:00', '13:00-15:00'],
+        'selasa': ['07:00-09:00', '15:00-17:00'],
+        'rabu': ['11:00-13:00', '17:00-19:00'],
+        'kamis': ['09:00-11:00', '19:00-21:00'],
+        'jumat': ['07:00-09:00', '13:00-15:00'],
+        'sabtu': ['09:00-11:00']
+    };
+    
+    days.forEach(day => {
+        schedule[day] = {};
+        timeSlots.forEach(slot => {
+            // Check if this is a class time
+            if (classSchedules[day] && classSchedules[day].includes(slot)) {
+                schedule[day][slot] = 'class';
+            } else {
+                // Random status untuk non-class times
+                const rand = Math.random();
+                if (rand < 0.6) {
+                    schedule[day][slot] = 'available';
+                } else if (rand < 0.8) {
+                    schedule[day][slot] = 'occupied';
+                } else if (rand < 0.9) {
+                    schedule[day][slot] = 'maintenance';
+                } else {
+                    schedule[day][slot] = 'available';
+                }
+            }
+        });
+    });
+    
+    return schedule;
+}
+// ✅ TAMBAHKAN DATA RUANGAN BARU INI:
+const roomsData = [
+    {
+        id: 1,
+        name: "Ruang Seminar A",
+        type: "seminar",
+        capacity: 100,
+        facilities: ["Projector", "AC", "Sound System", "Whiteboard", "WiFi"],
+        status: "available",
+        schedule: generateDetailedSchedule()
+    },
+    {
+        id: 2,
+        name: "Lab. Komputer 1",
+        type: "lab",
+        capacity: 40,
+        facilities: ["40 PC", "Projector", "AC", "Internet", "Software Development"],
+        status: "available",
+        schedule: generateDetailedSchedule()
+    },
+    {
+        id: 3,
+        name: "Ruang Diskusi 301",
+        type: "discussion",
+        capacity: 8,
+        facilities: ["AC", "Whiteboard", "TV", "WiFi"],
+        status: "occupied",
+        schedule: generateDetailedSchedule()
+    },
+    {
+        id: 4,
+        name: "Auditorium FT",
+        type: "auditorium",
+        capacity: 200,
+        facilities: ["Projector", "AC", "Sound System", "Stage", "Recording"],
+        status: "available",
+        schedule: generateDetailedSchedule()
+    },
+    {
+        id: 5,
+        name: "Lab. Jaringan",
+        type: "lab",
+        capacity: 25,
+        facilities: ["25 PC", "Switch", "Router", "AC", "Network Tools"],
+        status: "maintenance",
+        schedule: generateDetailedSchedule()
+    },
+    {
+        id: 6,
+        name: "Studio Multimedia",
+        type: "studio",
+        capacity: 15,
+        facilities: ["Camera", "Lighting", "Green Screen", "Editing PC"],
+        status: "available",
+        schedule: generateDetailedSchedule()
+    }
+];
+// ✅ TAMBAHKAN FUNCTION generateScheduleTable() YANG BARU:
+function generateScheduleTable(room) {
+    const days = [
+        { id: 'senin', name: 'Senin' },
+        { id: 'selasa', name: 'Selasa' },
+        { id: 'rabu', name: 'Rabu' },
+        { id: 'kamis', name: 'Kamis' },
+        { id: 'jumat', name: 'Jumat' },
+        { id: 'sabtu', name: 'Sabtu' }
+    ];
+    
+    const timeSlots = [
+        "07:00-09:00",
+        "09:00-11:00", 
+        "11:00-13:00",
+        "13:00-15:00"
+    ];
+    
+    // Generate table header
+    const thead = document.querySelector('.schedule-table thead tr');
+    thead.innerHTML = '<th class="time-header">WAKTU</th>';
+    days.forEach(day => {
+        thead.innerHTML += `<th>${day.name}</th>`;
+    });
+    
+    // Generate table body
+    const tbody = document.getElementById('scheduleBody');
+    tbody.innerHTML = '';
+    
+    timeSlots.forEach(timeSlot => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td class="time-slot">${timeSlot}</td>`;
+        
+        days.forEach(day => {
+            const status = room.schedule[day.id]?.[timeSlot] || 'available';
+            const cell = document.createElement('td');
+            cell.className = `schedule-cell ${status}`;
+            cell.setAttribute('data-day', day.id);
+            cell.setAttribute('data-time', timeSlot);
+            
+            let statusText = '';
+            let statusIcon = '';
+            let statusClass = '';
+            
+            switch(status) {
+                case 'available':
+                    statusText = 'Tersedia';
+                    statusIcon = '✅';
+                    statusClass = 'available';
+                    break;
+                case 'occupied':
+                    statusText = 'Dipinjam';
+                    statusIcon = '❌';
+                    statusClass = 'occupied';
+                    break;
+                case 'maintenance':
+                    statusText = 'Maintenance';
+                    statusIcon = '🔧';
+                    statusClass = 'maintenance';
+                    break;
+                case 'class':
+                    statusText = 'Kelas';
+                    statusIcon = '📚';
+                    statusClass = 'class';
+                    break;
+                default:
+                    statusText = 'Tersedia';
+                    statusIcon = '✅';
+                    statusClass = 'available';
+            }
+            
+            cell.innerHTML = `
+                <div class="slot-content">
+                    <span class="status-indicator ${statusClass}"></span>
+                    <span class="status-text">${statusText}</span>
+                    <span class="status-icon">${statusIcon}</span>
+                </div>
+            `;
+            
+            // Add click event hanya untuk yang available
+            if (status === 'available') {
+                cell.classList.add('clickable');
+                cell.addEventListener('click', () => selectTimeSlot(room, day.id, timeSlot, cell));
+            } else {
+                cell.style.cursor = 'not-allowed';
+                cell.title = getCellTooltip(status);
+            }
+            
+            row.appendChild(cell);
+        });
+        
+        tbody.appendChild(row);
+    });
+    
+    // Tambahkan legend
+    addScheduleLegend();
+}
+// ✅ TAMBAHKAN FUNCTION addScheduleLegend() YANG BARU:
+function addScheduleLegend() {
+    const modalBody = document.querySelector('.modal-body');
+    const existingLegend = document.querySelector('.schedule-legend');
+    
+    // Hapus legend lama jika ada
+    if (existingLegend) {
+        existingLegend.remove();
+    }
+    
+    const legend = document.createElement('div');
+    legend.className = 'schedule-legend';
+    legend.innerHTML = `
+        <div class="legend-title">Keterangan:</div>
+        <div class="legend-items">
+            <div class="legend-item">
+                <div class="legend-color legend-available"></div>
+                <span>Tersedia</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color legend-occupied"></div>
+                <span>Sudah Dipinjam</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color legend-class"></div>
+                <span>Kelas Berlangsung</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color legend-maintenance"></div>
+                <span>Maintenance</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color legend-selected"></div>
+                <span>Dipilih</span>
+            </div>
+        </div>
+    `;
+    
+    // Sisipkan legend sebelum calendar
+    const calendar = document.querySelector('.schedule-calendar');
+    modalBody.insertBefore(legend, calendar);
+}
 function showPreviousWeek() {
     showNotification('Menampilkan jadwal minggu sebelumnya', 'info');
 }
@@ -867,7 +1263,7 @@ window.debugApp = {
     showRoomsData: () => console.log('Rooms data:', roomsData),
     simulateLogin: () => {
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userFullName', 'Radistha Kriska');
+        localStorage.setItem('userFullName','Radistha Kriska');
         localStorage.setItem('currentUser', 'T14216');
         location.reload();
     },

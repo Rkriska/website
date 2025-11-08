@@ -23,7 +23,7 @@
       <p class="subtitle">Login untuk melanjutkan perjalananmu bersama InpoGama.</p>
 
       <form class="login-form" id="loginForm">
-        <input type="text" id="username" placeholder="Email Ugm" required />
+        <input type="text" id="email" placeholder="Username UGM" required />
         <input type="password" id="password" placeholder="Password" required />
         <button type="submit">Login</button>
       </form>
@@ -44,27 +44,24 @@
       body.classList.add('focused');
       overlay.classList.add('hide');
     });
+    // ==================================== login form handling ====
 
-    // ==== Login functionality ====
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      
-      // LOGIN SIMPLE - TANPA BACKEND
-      if(username && password) {
-          localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('userName', username);
-          
-          alert('Login berhasil! Selamat datang, ' + username);
-          
-          // Ganti dengan halaman tujuan yang sesuai
-          window.location.href = 'dashboard.html';
-      } else {
-          alert('Silakan isi username dan password!');
-      }
-    });
+     document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            if(email && password) {
+                // Simpan data user
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userName', email); // ambil username dari email
+                
+                // Redirect ke dashboard
+            }               
+             window.location.href = 'dashboard.html';
+
+        });
 
     // Cek jika user sudah login
     window.addEventListener('load', function() {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UGM Campus Hub - Dashboard</title>
+    <title>Gamasi - Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
             <div class="logo-section">
                 <div class="logo">
                     <div class="logo-icon">🎓</div>
-                    <h2>UGM Campus Hub</h2>
+                    <h2>Gajah Mada <br> Informasi</h2>
                 </div>
             </div>
 
@@ -65,10 +65,7 @@
                             <span class="nav-icon">📢</span>
                             <span class="nav-text">Pengumuman</span>
                         </li>
-                        <li class="nav-item" data-page="fasilitas">
-                            <span class="nav-icon">🏢</span>
-                            <span class="nav-text">Fasilitas</span>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -77,11 +74,11 @@
             <div class="user-section">
                 <div class="user-profile">
                     <div class="user-avatar">
-                        <div class="avatar-fallback">RK</div>
+                        <div class="avatar-fallback" id="avatarInitials">RK</div>
                     </div>
                     <div class="user-info">
-                        <div class="user-name">Radistha Kriska</div>
-                        <div class="user-nim">T14216</div>
+                    <div class="user-name" id="userNameDisplay"></div> <!-- ✅ HANYA INI -->
+                    <div class="user-nim">T14216</div>
                     </div>
                     <button class="logout-btn" title="Logout">
                         <span>🚪</span>
@@ -117,7 +114,7 @@
                 <section class="welcome-section">
                     <div class="welcome-card">
                         <div class="welcome-content">
-                            <h1>Selamat Datang, <span class="highlight" id="welcomeName">Radistha!</span> 👋</h1>
+                            <h1>Selamat Datang, <span class="highlight" id="welcomeUsername">!</span> 👋</h1>
                             <p>Kamu memiliki <strong>2 jadwal hari ini</strong>. Jangan lupa persiapan untuk kelas Pemrograman!</p>
                         </div>
                         <div class="welcome-stats">
@@ -169,18 +166,7 @@
                                         Akan Datang
                                     </div>
                                 </div>
-                                <div class="schedule-item">
-                                    <div class="schedule-time">
-                                        <span>13:00 - 15:00</span>
-                                    </div>
-                                    <div class="schedule-details">
-                                        <h4>Jaringan Komputer</h4>
-                                        <p>Lab. Jaringan • Dr. Sarah Miller</p>
-                                    </div>
-                                    <div class="schedule-status upcoming">
-                                        Akan Datang
-                                    </div>
-                                </div>
+                                
                             </div>
                         </section>
 
@@ -665,11 +651,7 @@
 
         <!-- Filter Kategori -->
         <div class="announcement-filters">
-            <button class="filter-btn active" data-category="all">Semua</button>
-            <button class="filter-btn" data-category="academic">Akademik</button>
-            <button class="filter-btn" data-category="event">Event</button>
-            <button class="filter-btn" data-category="scholarship">Beasiswa</button>
-            <button class="filter-btn" data-category="facility">Fasilitas</button>
+           
         </div>
 
         <div class="announcement-list full">
@@ -770,10 +752,7 @@
         
         <!-- Filter Notifikasi -->
         <div class="notification-filters">
-            <button class="filter-btn active" data-filter="all">Semua</button>
-            <button class="filter-btn" data-filter="academic">Akademik</button>
-            <button class="filter-btn" data-filter="facility">Fasilitas</button>
-            <button class="filter-btn" data-filter="reminder">Pengingat</button>
+            
         </div>
 
         <div class="notification-list">
@@ -996,17 +975,7 @@
         </div>
     </div>
 </section>
-            <!-- ===== FASILITAS PAGE ===== -->
-            <section class="page-content" id="fasilitasPage">
-                <div class="content-card">
-                    <div class="card-header">
-                        <h2>🏢 Semua Fasilitas</h2>
-                    </div>
-                    <div class="facility-list full">
-                        <!-- All facilities will be here -->
-                    </div>
-                </div>
-            </section>
+           
 
         </main>
     </div>
@@ -1029,7 +998,13 @@
                     <table class="schedule-table">
                         <thead>
                             <tr>
-                                <th>Waktu</th>
+                                <th>Waktu</th> 
+                                <th> Senin </th>
+                                <th> Selasa </th>
+                                <th> Rabu </th>
+                                <th> Kamis </th>        
+                                <th> Jumat </th>
+                                <th> Sabtu</th>
                                 <!-- Hari akan di-generate oleh JavaScript -->
                             </tr>
                         </thead>
@@ -1045,10 +1020,11 @@
             </div>
         </div>
     </div>
-    <script src="main.js">
-if(!localStorage.getItem('isLoggedIn')) {
-    window.location.href = 'index.html';
-}   
-    </script>
+    <script>
+    if(!localStorage.getItem('isLoggedIn')) {
+        window.location.href = 'index.html';
+    }      
+    </script> 
+    <script src="main.js"> </script>
 </body>
 </html>
