@@ -68,7 +68,7 @@ function typeWriterEffect(element, text, speed = 50) {
 }
 // Initialize application
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎓 UGM Campus Hub Initialized');
+    console.log('🎓 GAMASI Initialized');
     
     checkAuthentication();
     setupPageNavigation();
@@ -133,7 +133,7 @@ function setupLogout() {
         e.preventDefault();
         e.stopPropagation();
         
-        if (confirm('Apakah Anda yakin ingin logout dari UGM Campus Hub?')) {
+        if (confirm('Apakah Anda yakin ingin logout dari GAMASI?')) {
             console.log('🚪 User logging out...');
             
             // Clear all storage
@@ -264,7 +264,7 @@ function updatePageTitle(pageName) {
         'fasilitas': 'Fasilitas'
     };
     
-    document.title = `UGM Campus Hub - ${titles[pageName] || 'Dashboard'}`;
+    document.title = ` GAMASI - ${titles[pageName] || 'Dashboard'}`;
 }
 
 // ===== PAGE INITIALIZATION SYSTEM =====
@@ -1273,7 +1273,7 @@ window.debugApp = {
     }
 };
 
-console.log('🚀 UGM Campus Hub JavaScript loaded successfully!');
+console.log('🚀 GAMASI JavaScript loaded successfully!');
 console.log('💡 Debug tips:');
 console.log('   - Type debugApp.showCurrentPage() to see current page');
 console.log('   - Type debugApp.simulateLogin() to login manually');
