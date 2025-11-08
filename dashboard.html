@@ -45,6 +45,10 @@
                             <span class="nav-icon">📝</span>
                             <span class="nav-text">Nilai</span>
                         </li>
+                        <li class="nav-item" data-page="dosen">
+    <span class="nav-icon">👨‍🏫</span>
+    <span class="nav-text">Profil Dosen</span>
+</li>
                     </ul>
                 </div>
 
@@ -490,7 +494,7 @@
                     </div>
                 </div>
             </section>
-
+            
             <!-- ===== JADWAL KULIAH PAGE ===== -->
             <section class="page-content" id="jadwalPage">
                 <div class="content-card">
@@ -648,30 +652,350 @@
             </section>
 
             <!-- ===== PENGUMUMAN PAGE ===== -->
-            <section class="page-content" id="pengumumanPage">
-                <div class="content-card">
-                    <div class="card-header">
-                        <h2>📢 Semua Pengumuman</h2>
+            <!-- ===== PENGUMUMAN PAGE ===== -->
+<section class="page-content" id="pengumumanPage">
+    <div class="content-card">
+        <div class="card-header">
+            <h2>📢 Semua Pengumuman</h2>
+            <div class="search-bar">
+                <input type="text" placeholder="Cari pengumuman..." id="announcementSearch">
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+
+        <!-- Filter Kategori -->
+        <div class="announcement-filters">
+            <button class="filter-btn active" data-category="all">Semua</button>
+            <button class="filter-btn" data-category="academic">Akademik</button>
+            <button class="filter-btn" data-category="event">Event</button>
+            <button class="filter-btn" data-category="scholarship">Beasiswa</button>
+            <button class="filter-btn" data-category="facility">Fasilitas</button>
+        </div>
+
+        <div class="announcement-list full">
+            <!-- Pengumuman 1 -->
+            <div class="announcement-item urgent" data-category="event">
+                <div class="announcement-icon">🚨</div>
+                <div class="announcement-content">
+                    <div class="announcement-header">
+                        <h4>Seminar Nasional: AI dalam Pendidikan</h4>
+                        <span class="announcement-date">12 Des 2024</span>
                     </div>
-                    <div class="announcement-list full">
-                        <!-- All announcements will be here -->
+                    <p>Fakultas Teknik UGM mengundang seluruh mahasiswa untuk menghadiri Seminar Nasional tentang Artificial Intelligence dalam Pendidikan. Acara akan menghadirkan pembicara dari industri dan akademisi.</p>
+                    <div class="announcement-details">
+                        <span class="detail-item">📅 15 Desember 2024</span>
+                        <span class="detail-item">⏰ 13:00 - 16:00 WIB</span>
+                        <span class="detail-item">📍 Auditorium Fakultas Teknik</span>
+                    </div>
+                    <div class="announcement-tags">
+                        <span class="announcement-tag important">Penting</span>
+                        <span class="announcement-tag">Seminar</span>
                     </div>
                 </div>
-            </section>
+            </div>
+
+            <!-- Pengumuman 2 -->
+            <div class="announcement-item" data-category="scholarship">
+                <div class="announcement-icon">🎓</div>
+                <div class="announcement-content">
+                    <div class="announcement-header">
+                        <h4>Beasiswa Prestasi 2024</h4>
+                        <span class="announcement-date">10 Des 2024</span>
+                    </div>
+                    <p>Pendaftaran Beasiswa Prestasi untuk Semester Genap 2024/2025 telah dibuka. Segera daftarkan diri Anda melalui portal student.ku.</p>
+                    <div class="announcement-details">
+                        <span class="detail-item">📅 Deadline: 30 November 2024</span>
+                        <span class="detail-item">💰 Nilai: Rp 5.000.000/semester</span>
+                    </div>
+                    <div class="announcement-tags">
+                        <span class="announcement-tag">Beasiswa</span>
+                        <span class="announcement-tag">Prestasi</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pengumuman 3 -->
+            <div class="announcement-item" data-category="academic">
+                <div class="announcement-icon">📝</div>
+                <div class="announcement-content">
+                    <div class="announcement-header">
+                        <h4>Lomba Karya Tulis Ilmiah 2024</h4>
+                        <span class="announcement-date">8 Des 2024</span>
+                    </div>
+                    <p>Universitas Gadjah Mada menyelenggarakan Lomba Karya Tulis Ilmiah tingkat nasional. Tema: "Inovasi Teknologi untuk Indonesia Emas 2045".</p>
+                    <div class="announcement-details">
+                        <span class="detail-item">📅 Pendaftaran: 1-30 Nov 2024</span>
+                        <span class="detail-item">🏆 Total Hadiah: Rp 50 Juta</span>
+                    </div>
+                    <div class="announcement-tags">
+                        <span class="announcement-tag">Kompetisi</span>
+                        <span class="announcement-tag">Akademik</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pengumuman 4 -->
+            <div class="announcement-item" data-category="facility">
+                <div class="announcement-icon">🏢</div>
+                <div class="announcement-content">
+                    <div class="announcement-header">
+                        <h4>Maintenance Lab Komputer</h4>
+                        <span class="announcement-date">5 Des 2024</span>
+                    </div>
+                    <p>Lab Komputer 1 dan 2 akan ditutup sementara untuk maintenance pada tanggal 18-20 Desember 2024. Mohon maaf atas ketidaknyamanannya.</p>
+                    <div class="announcement-details">
+                        <span class="detail-item">📅 18-20 Des 2024</span>
+                        <span class="detail-item">🔧 Maintenance Rutin</span>
+                    </div>
+                    <div class="announcement-tags">
+                        <span class="announcement-tag">Fasilitas</span>
+                        <span class="announcement-tag">Maintenance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
             <!-- ===== NOTIFIKASI PAGE ===== -->
-            <section class="page-content" id="notifikasiPage">
-                <div class="content-card">
-                    <div class="card-header">
-                        <h2>🔔 Notifikasi</h2>
-                        <button class="btn-text" id="markAllRead">Tandai Sudah Dibaca</button>
+<section class="page-content" id="notifikasiPage">
+    <div class="content-card">
+        <div class="card-header">
+            <h2>🔔 Notifikasi</h2>
+            <div class="header-actions">
+                <button class="btn-text" id="markAllRead">Tandai Sudah Dibaca</button>
+                <button class="btn-text" id="clearAll">Hapus Semua</button>
+            </div>
+        </div>
+        
+        <!-- Filter Notifikasi -->
+        <div class="notification-filters">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="academic">Akademik</button>
+            <button class="filter-btn" data-filter="facility">Fasilitas</button>
+            <button class="filter-btn" data-filter="reminder">Pengingat</button>
+        </div>
+
+        <div class="notification-list">
+            <!-- Notifikasi 1 -->
+            <div class="notification-item unread" data-type="facility">
+                <div class="notification-icon">✅</div>
+                <div class="notification-content">
+                    <h4>Peminjaman Ruangan Dikonfirmasi</h4>
+                    <p>Peminjaman Ruang Seminar A untuk tanggal 15 Desember 2024 telah dikonfirmasi oleh admin</p>
+                    <span class="notification-time">10 menit yang lalu</span>
+                </div>
+                <div class="notification-actions">
+                    <button class="btn-icon" title="Tandai sudah dibaca">✓</button>
+                </div>
+            </div>
+
+            <!-- Notifikasi 2 -->
+            <div class="notification-item unread" data-type="academic">
+                <div class="notification-icon">📝</div>
+                <div class="notification-content">
+                    <h4>Nilai Baru Tersedia</h4>
+                    <p>Nilai untuk mata kuliah Pemrograman Web sudah dapat diakses di portal akademik</p>
+                    <span class="notification-time">1 jam yang lalu</span>
+                </div>
+                <div class="notification-actions">
+                    <button class="btn-icon" title="Tandai sudah dibaca">✓</button>
+                </div>
+            </div>
+
+            <!-- Notifikasi 3 -->
+            <div class="notification-item" data-type="reminder">
+                <div class="notification-icon">⏰</div>
+                <div class="notification-content">
+                    <h4>Pengingat Jadwal Kelas</h4>
+                    <p>Kelas Sistem Operasi besok pukul 10:00 di Lab. OS. Jangan lupa membawa laptop!</p>
+                    <span class="notification-time">Hari ini, 14:30</span>
+                </div>
+                <div class="notification-actions">
+                    <button class="btn-icon" title="Tandai sudah dibaca">✓</button>
+                </div>
+            </div>
+
+            <!-- Notifikasi 4 -->
+            <div class="notification-item" data-type="facility">
+                <div class="notification-icon">🏢</div>
+                <div class="notification-content">
+                    <h4>Status Ruangan Berubah</h4>
+                    <p>Lab. Komputer 1 sekarang tersedia untuk peminjaman</p>
+                    <span class="notification-time">Kemarin, 16:45</span>
+                </div>
+                <div class="notification-actions">
+                    <button class="btn-icon" title="Tandai sudah dibaca">✓</button>
+                </div>
+            </div>
+
+            <!-- Notifikasi 5 -->
+            <div class="notification-item" data-type="academic">
+                <div class="notification-icon">📚</div>
+                <div class="notification-content">
+                    <h4>Buku Perpustakaan Harus Dikembalikan</h4>
+                    <p>Buku "Pemrograman Web Modern" harus dikembalikan sebelum 20 Desember 2024</p>
+                    <span class="notification-time">2 hari yang lalu</span>
+                </div>
+                <div class="notification-actions">
+                    <button class="btn-icon" title="Tandai sudah dibaca">✓</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ===== DOSEN PROFILE PAGE ===== -->
+<section class="page-content" id="dosenPage">
+    <div class="content-card">
+        <div class="card-header">
+            <h2>👨‍🏫 Profil Dosen</h2>
+            <div class="search-bar">
+                <input type="text" placeholder="Cari nama dosen..." id="dosenSearch">
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+
+        <!-- Dosen Statistics -->
+        <div class="dosen-stats">
+            <div class="stat-card">
+                <div class="stat-icon">👨‍🏫</div>
+                <div class="stat-info">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">Total Dosen</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📚</div>
+                <div class="stat-info">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Dosen Aktif</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-info">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Professor</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dosen List -->
+        <div class="dosen-grid">
+            <!-- Dosen 1 -->
+            <div class="dosen-card">
+                <div class="dosen-avatar">
+                    <div class="avatar-image">👨‍💼</div>
+                </div>
+                <div class="dosen-info">
+                    <h3>Dr. Ahmad Sopian, M.Kom.</h3>
+                    <p class="dosen-position">Dosen Tetap - Fakultas Teknik</p>
+                    <div class="dosen-meta">
+                        <span class="meta-item">📧 ahmad.sopian@ugm.ac.id</span>
+                        <span class="meta-item">📱 +62 812-3456-7890</span>
+                        <span class="meta-item">🏢 Gedung Teknik Lt. 3</span>
                     </div>
-                    <div class="notification-list">
-                        <!-- Notifications will be here -->
+                    <div class="dosen-expertise">
+                        <h4>Mata Kuliah yang Diajar:</h4>
+                        <div class="expertise-list">
+                            <span class="expertise-tag">Pemrograman Web</span>
+                            <span class="expertise-tag">Basis Data</span>
+                            <span class="expertise-tag">Algoritma</span>
+                        </div>
+                    </div>
+                    <div class="dosen-actions">
+                        <button class="btn-primary btn-sm">Kirim Pesan</button>
+                        <button class="btn-secondary btn-sm">Lihat Jadwal</button>
                     </div>
                 </div>
-            </section>
+            </div>
 
+            <!-- Dosen 2 -->
+            <div class="dosen-card">
+                <div class="dosen-avatar">
+                    <div class="avatar-image">👩‍🔬</div>
+                </div>
+                <div class="dosen-info">
+                    <h3>Prof. Sarah Miller, Ph.D.</h3>
+                    <p class="dosen-position">Professor - Fakultas Teknik</p>
+                    <div class="dosen-meta">
+                        <span class="meta-item">📧 sarah.miller@ugm.ac.id</span>
+                        <span class="meta-item">📱 +62 813-4567-8901</span>
+                        <span class="meta-item">🏢 Gedung Teknik Lt. 4</span>
+                    </div>
+                    <div class="dosen-expertise">
+                        <h4>Mata Kuliah yang Diajar:</h4>
+                        <div class="expertise-list">
+                            <span class="expertise-tag">Data Science</span>
+                            <span class="expertise-tag">Machine Learning</span>
+                            <span class="expertise-tag">Statistika</span>
+                        </div>
+                    </div>
+                    <div class="dosen-actions">
+                        <button class="btn-primary btn-sm">Kirim Pesan</button>
+                        <button class="btn-secondary btn-sm">Lihat Jadwal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dosen 3 -->
+            <div class="dosen-card">
+                <div class="dosen-avatar">
+                    <div class="avatar-image">👨‍🔧</div>
+                </div>
+                <div class="dosen-info">
+                    <h3>Prof. Budi Santoso, S.T., M.T.</h3>
+                    <p class="dosen-position">Dosen Tetap - Fakultas Teknik</p>
+                    <div class="dosen-meta">
+                        <span class="meta-item">📧 budi.santoso@ugm.ac.id</span>
+                        <span class="meta-item">📱 +62 814-5678-9012</span>
+                        <span class="meta-item">🏢 Gedung Teknik Lt. 2</span>
+                    </div>
+                    <div class="dosen-expertise">
+                        <h4>Mata Kuliah yang Diajar:</h4>
+                        <div class="expertise-list">
+                            <span class="expertise-tag">Sistem Operasi</span>
+                            <span class="expertise-tag">Jaringan Komputer</span>
+                            <span class="expertise-tag">Keamanan Siber</span>
+                        </div>
+                    </div>
+                    <div class="dosen-actions">
+                        <button class="btn-primary btn-sm">Kirim Pesan</button>
+                        <button class="btn-secondary btn-sm">Lihat Jadwal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dosen 4 -->
+            <div class="dosen-card">
+                <div class="dosen-avatar">
+                    <div class="avatar-image">👩‍💻</div>
+                </div>
+                <div class="dosen-info">
+                    <h3>Dr. Maya Sari, M.Sc.</h3>
+                    <p class="dosen-position">Dosen Tetap - Fakultas Teknik</p>
+                    <div class="dosen-meta">
+                        <span class="meta-item">📧 maya.sari@ugm.ac.id</span>
+                        <span class="meta-item">📱 +62 815-6789-0123</span>
+                        <span class="meta-item">🏢 Gedung Teknik Lt. 3</span>
+                    </div>
+                    <div class="dosen-expertise">
+                        <h4>Mata Kuliah yang Diajar:</h4>
+                        <div class="expertise-list">
+                            <span class="expertise-tag">Pemrograman Mobile</span>
+                            <span class="expertise-tag">UI/UX Design</span>
+                            <span class="expertise-tag">Interaksi Manusia-Komputer</span>
+                        </div>
+                    </div>
+                    <div class="dosen-actions">
+                        <button class="btn-primary btn-sm">Kirim Pesan</button>
+                        <button class="btn-secondary btn-sm">Lihat Jadwal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
             <!-- ===== FASILITAS PAGE ===== -->
             <section class="page-content" id="fasilitasPage">
                 <div class="content-card">
